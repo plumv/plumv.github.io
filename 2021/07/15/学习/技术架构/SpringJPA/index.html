@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"plumv.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="引入的依赖  12345678910&lt;dependency&gt;  &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;  &lt;artifactId&gt;spring-boot-starter&lt;&#x2F;artifactId&gt;  &lt;version&gt;2.1.11.RELEASE&lt;&#x2F;version&amp;gt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringJPA的学习">
+<meta property="og:url" content="https://plumv.github.io/2021/07/15/%E5%AD%A6%E4%B9%A0/%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/SpringJPA/index.html">
+<meta property="og:site_name" content="李川的个人博客">
+<meta property="og:description" content="引入的依赖  12345678910&lt;dependency&gt;  &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;  &lt;artifactId&gt;spring-boot-starter&lt;&#x2F;artifactId&gt;  &lt;version&gt;2.1.11.RELEASE&lt;&#x2F;version&amp;gt">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-07-15T10:15:41.325Z">
+<meta property="article:author" content="Plum Reiver">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://plumv.github.io/2021/07/15/%E5%AD%A6%E4%B9%A0/%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/SpringJPA/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>SpringJPA的学习 | 李川的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">李川的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>日志</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://plumv.github.io/2021/07/15/%E5%AD%A6%E4%B9%A0/%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/SpringJPA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Plum Reiver">
+      <meta itemprop="description" content="技术，日常，笔记">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李川的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SpringJPA的学习
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-07-15 00:00:00 / 修改时间：18:15:41" itemprop="dateCreated datePublished" datetime="2021-07-15T00:00:00+08:00">2021-07-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">技术架构</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <span id="more"></span>
+
+<ul>
+<li>引入的依赖</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.11.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-jpa<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.11.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置文件</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">data:</span></span><br><span class="line">    <span class="attr">jpa:</span></span><br><span class="line">      <span class="attr">repositories:</span></span><br><span class="line">        <span class="comment"># 存储库的存储模式</span></span><br><span class="line">        <span class="attr">bootstrap-mode:</span> <span class="string">default</span></span><br><span class="line">        <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">jpa:</span></span><br><span class="line">    <span class="comment"># 数据库方言，自动检测即可。示例</span></span><br><span class="line">    <span class="comment"># database-platform:</span></span><br><span class="line">    <span class="comment"># 指定jpa的使用的数据库</span></span><br><span class="line">    <span class="attr">database:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="comment"># 是否创建数据库</span></span><br><span class="line">    <span class="attr">generate-ddl:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># 映射文件的位置</span></span><br><span class="line">    <span class="attr">mapping-resources:</span></span><br><span class="line">    <span class="comment"># JPA的一些其他属性</span></span><br><span class="line">    <span class="comment"># properties:</span></span><br><span class="line">    <span class="comment"># 是否显示sql语句</span></span><br><span class="line">    <span class="attr">show-sql:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># ？？？？</span></span><br><span class="line">    <span class="attr">open-in-view:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">hibernate:</span></span><br><span class="line">      <span class="comment"># 配置是否创建数据库表</span></span><br><span class="line">      <span class="attr">ddl-auto:</span> <span class="string">none</span></span><br><span class="line">      <span class="comment"># 使用新的id生成器</span></span><br><span class="line">      <span class="attr">use-new-id-generator-mappings:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">naming:</span></span><br><span class="line">        <span class="attr">implicit-strategy:</span> <span class="string">org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</span></span><br><span class="line">        <span class="attr">physical-strategy:</span> <span class="string">org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>实体类的注解</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># @Entity</span></span><br><span class="line"><span class="code">	指定此类是个实体类</span></span><br><span class="line"><span class="code"># @Table(name = &quot;persons&quot;)</span></span><br><span class="line"><span class="code">	指定此类对应的表名为</span></span><br><span class="line"><span class="code"># @Id</span></span><br><span class="line"><span class="code">	指定此属性是此实体类的id,主键。可以写在get方法或者属性上</span></span><br><span class="line"><span class="code"># @GeneratedValue(strategy = GenerationType.AUTO)</span></span><br><span class="line"><span class="code">	指定此id的自定生成策略为auto</span></span><br><span class="line"><span class="code"># @Column(name = &quot;per_name&quot;)</span></span><br><span class="line"><span class="code">	指定此属性对应的表的字段名</span></span><br><span class="line"><span class="code">#  @Temporal(TemporalType.TIMESTAMP)</span></span><br><span class="line"><span class="code">	适用于java.util.date类型的参数,指定日期的精度</span></span><br><span class="line"><span class="code"># @Basic</span></span><br><span class="line"><span class="code">	标识此属性可以映射到表的字段上。可以不写</span></span><br><span class="line"><span class="code"># @Transient</span></span><br><span class="line"><span class="code">	标识此属性与表的字段不产生映射，即表中不应有此属性的对应字段</span></span><br><span class="line"><span class="code"># @TableGenerator</span></span><br><span class="line"><span class="code">	name = &quot;id_generator&quot;, //表示该主键生成策略的名称，它被引用在@GeneratedValue中设置的generator 值中。</span></span><br><span class="line"><span class="code">	table = &quot;idgenerator&quot;, //对应主键表的表名。</span></span><br><span class="line"><span class="code">	allocationSize = 1, //表示pk_value字段的值递增的增量。</span></span><br><span class="line"><span class="code">	initialValue = 1, //表示第一次pk_value字段的初始值。</span></span><br><span class="line"><span class="code">	pkColumnName = &quot;pk_name&quot;, //</span></span><br><span class="line"><span class="code">	pkColumnValue = &quot;orders_id&quot;, //表示pk_name字段的值</span></span><br><span class="line"><span class="code">	valueColumnName = &quot;pk_value&quot;) //</span></span><br><span class="line"><span class="code"># @ManyToOne(fetch = FetchType.LAZY)</span></span><br><span class="line"><span class="code">	与@JoinColumn一起使用</span></span><br><span class="line"><span class="code">	表示单向多对一的映射</span></span><br><span class="line"><span class="code"># @JoinColumn(name = &quot;dep_id&quot;)</span></span><br><span class="line"><span class="code">	表示映射到外键列的列名</span></span><br><span class="line"><span class="code"># @OneToMany(fetch = FetchType.EAGER,cascade = &#123;CascadeType.REMOVE&#125;)</span></span><br><span class="line"><span class="code">	与@JoinColumn一起使用</span></span><br><span class="line"><span class="code">	表示单向表示一对多的关系</span></span><br><span class="line"><span class="code">#  @OneToMany(mappedBy = &quot;boss&quot;)</span></span><br><span class="line"><span class="code">	表示双向一对多的关系</span></span><br><span class="line"><span class="code">#  @OneToOne(mappedBy = &quot;idCard&quot;)</span></span><br><span class="line"><span class="code">	表示单向一对多的关系</span></span><br><span class="line"><span class="code"># @ManyToMany</span></span><br><span class="line"><span class="code">	表示双向多对多的关系</span></span><br><span class="line"><span class="code">	常于JoinTable一起使用</span></span><br><span class="line"><span class="code"># @JoinTable</span></span><br><span class="line"><span class="code">	表示关联一张中间表</span></span><br><span class="line"><span class="code">	name = &quot;author_book&quot;, //表示中间表的表名</span></span><br><span class="line"><span class="code">	joinColumns = &#123; //关联外键。外键名为author_id，关联到当前表的id</span></span><br><span class="line"><span class="code">	@JoinColumn(name = &quot;author_id&quot;,referencedColumnName = &quot;id&quot;)</span></span><br><span class="line"><span class="code">	&#125;,</span></span><br><span class="line"><span class="code">	inverseJoinColumns = &#123; //反向关联的外键。外键名为book_id，关联到另一个表的id</span></span><br><span class="line"><span class="code">	@JoinColumn(name = &quot;book_id&quot;,referencedColumnName = &quot;id&quot;)</span></span><br><span class="line"><span class="code">	&#125;</span></span><br><span class="line"><span class="code">	)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>接口</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># Repository</span></span><br><span class="line"><span class="code">	仅表示此接口是一个持久层访问，提供基本的增删改查。</span></span><br><span class="line"><span class="code">	可以使用 @RepositoryDefinition 注解，并为其指定 domainClass 和 idClass 属性。</span></span><br><span class="line"><span class="code"># CrudRepository： </span></span><br><span class="line"><span class="code">	继承 Repository，实现了一组 CRUD 相关的方法 。</span></span><br><span class="line"><span class="code"># PagingAndSortingRepository： </span></span><br><span class="line"><span class="code">	继承 CrudRepository，实现了一组分页排序相关的方法 。</span></span><br><span class="line"><span class="code"># JpaRepository： </span></span><br><span class="line"><span class="code">	继承 PagingAndSortingRepository，实现一组 JPA 规范相关的方法 。</span></span><br><span class="line"><span class="code"># JpaSpecificationExecutor： </span></span><br><span class="line"><span class="code">	不属于Repository体系，实现一组 JPA Criteria 查询相关的方法 。</span></span><br><span class="line"><span class="code"># 自定义的 XxxxRepository </span></span><br><span class="line"><span class="code">	需要继承 JpaRepository，这样的 XxxxRepository 接口就具备了通用的数据访问控制层的能力。</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>接口的方法规范</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 使用命名式方式查询</span></span><br><span class="line"><span class="code">	查询方法以 find | read | get 开头</span></span><br><span class="line"><span class="code">	涉及条件查询时，条件的属性用条件关键字连接，要注意的是：条件属性以首字母大写。</span></span><br><span class="line"><span class="code">	条件的属性名称与个数要与参数的位置与个数一一对应。</span></span><br><span class="line"><span class="code">		findByLastNameAndFirstName(String lastName,String firstName);</span></span><br><span class="line"><span class="code">	在方法的参数上加入分页或排序的参数：Page&lt;UserModel&gt; findByName(String name, Pageable pageable);</span></span><br><span class="line"><span class="code"># 使用@Query注解</span></span><br><span class="line"><span class="code">	使用JPQL语句，参数使用命名参数，与@Param(&quot;ID&quot;)注解一起使用</span></span><br><span class="line"><span class="code">	使用原生的sql语句：@Query(value = &quot;select * from student&quot;, nativeQuery = true)</span></span><br><span class="line"><span class="code"># @Modifying</span></span><br><span class="line"><span class="code">	表明这个方法是一个修改的方法。修改包括删除和更新操作。</span></span><br><span class="line"><span class="code">	 常与 Query使用</span></span><br><span class="line"><span class="code">	 调用方必须添加@Transactional注解声明事务。</span></span><br><span class="line"><span class="code"># 自定义实现Repository接口的规则</span></span><br><span class="line"><span class="code">	先声明一个Repository接口，再创建实现该接口的实现类，实现类的类名格式是：XxxRepository+Impl。</span></span><br><span class="line"><span class="code">	使用时继承这个自己声明的Repository接口即可。</span></span><br><span class="line"><span class="code">	public class SchoolRepositoryImpl implements SchoolDao&#123;</span></span><br><span class="line"><span class="code">	@PersistenceContext</span></span><br><span class="line"><span class="code">	private EntityManager entityManager;</span></span><br><span class="line"><span class="code">	@Override</span></span><br><span class="line"><span class="code">	public void test() &#123;</span></span><br><span class="line"><span class="code">    //此处可以来连接数据库，进行各种操作</span></span><br><span class="line"><span class="code">    System.out.println(&quot;自定义的Repository方法&quot; + entityManager);</span></span><br><span class="line"><span class="code">	&#125;</span></span><br><span class="line"><span class="code">	&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>* </p>
+
+    </div>
+
+    
+    
+    
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/06/25/%E5%B0%9A%E7%A1%85%E8%B0%B7%E8%AF%B4Java/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL%E6%97%A5%E5%BF%97%E7%9A%84%E5%BA%94%E7%94%A8/" rel="prev" title="Mysql日志的应用">
+      <i class="fa fa-chevron-left"></i> Mysql日志的应用
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Plum Reiver</p>
+  <div class="site-description" itemprop="description">技术，日常，笔记</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">90</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+	
+  </nav>
+</div>
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Plum Reiver</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
