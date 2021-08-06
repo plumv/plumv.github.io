@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"plumv.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="Ribbon一般作为服务调用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ribbon的使用">
+<meta property="og:url" content="https://plumv.github.io/2021/08/06/Java%E5%AD%A6%E4%B9%A0/%E5%88%86%E5%B8%83%E5%BC%8F%E6%8A%80%E6%9C%AF/Cloud-Ribbon/index.html">
+<meta property="og:site_name" content="李川的个人博客">
+<meta property="og:description" content="Ribbon一般作为服务调用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/plumChuan/picture-bed/raw/master/img/20210806111257.png">
+<meta property="og:image" content="https://gitee.com/plumChuan/picture-bed/raw/master/img/20210806112956.png">
+<meta property="article:published_time" content="2021-08-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-08-06T10:01:31.396Z">
+<meta property="article:author" content="Plum Reiver">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/plumChuan/picture-bed/raw/master/img/20210806111257.png">
+
+<link rel="canonical" href="https://plumv.github.io/2021/08/06/Java%E5%AD%A6%E4%B9%A0/%E5%88%86%E5%B8%83%E5%BC%8F%E6%8A%80%E6%9C%AF/Cloud-Ribbon/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Ribbon的使用 | 李川的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">李川的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>日志</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://plumv.github.io/2021/08/06/Java%E5%AD%A6%E4%B9%A0/%E5%88%86%E5%B8%83%E5%BC%8F%E6%8A%80%E6%9C%AF/Cloud-Ribbon/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Plum Reiver">
+      <meta itemprop="description" content="技术，日常，笔记">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李川的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Ribbon的使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-08-06 00:00:00 / 修改时间：18:01:31" itemprop="dateCreated datePublished" datetime="2021-08-06T00:00:00+08:00">2021-08-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">Java学习</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java%E5%AD%A6%E4%B9%A0/%E5%88%86%E5%B8%83%E5%BC%8F%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">分布式技术</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li>Ribbon一般作为服务调用。</li>
+</ul>
+<span id="more"></span>
+
+
+
+<h5 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h5><ul>
+<li>简单的说就是将用户的请求平摊的分配到多个服务上，从而达到系统的HA（高可用）。</li>
+<li>常见的负载均衡有软件Nginx，LVS，硬件 F5等。</li>
+<li>分类<ul>
+<li>集中式LB：即在服务的消费方和提供方之间使用独立的LB设施(可以是硬件，如F5, 也可以是软件，如nginx), 由该设施负责把访问请求通过某种策略转发至服务的提供方；</li>
+<li>进程内LB：将LB逻辑集成到消费方，消费方从服务注册中心获知有哪些地址可用，然后自己再从这些地址中选择出一个合适的服务器。<ul>
+<li>Ribbon就属于进程内LB，它只是一个类库，集成于消费方进程，消费方通过它来获取到服务提供方的地址。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Ribbon本地负载均衡客户端 VS Nginx服务端负载均衡区别<ul>
+<li>Nginx是<strong>服务器负载均衡</strong>，客户端所有请求都会交给nginx，然后由nginx实现转发请求。即负载均衡是由服务端实现的。</li>
+<li>Ribbon是<strong>本地负载均衡</strong>，在调用微服务接口时候，会在注册中心上获取注册信息服务列表之后缓存到JVM本地，从而在本地实现RPC远程服务调用技术。</li>
+</ul>
+</li>
+</ul>
+<h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><ul>
+<li><p>Spring Cloud Ribbon是基于Netflix Ribbon实现的一套<strong>客户端</strong>负载均衡的工具。</p>
+</li>
+<li><p>简单的说，Ribbon是Netflix发布的开源项目，主要功能是提供客户端的软件负载均衡算法和服务调用。Ribbon客户端组件提供一系列完善的配置项如连接超时，重试等。</p>
+</li>
+<li><p>简单的说，就是在配置文件中列出Load Balancer（简称LB）后面所有的机器，Ribbon会自动的帮助你基于某种规则（如简单轮询，随机连接等）去连接这些机器。我们很容易使用Ribbon实现自定义的负载均衡算法。</p>
+</li>
+<li><p>Ribbon的系统架构图：</p>
+<p><img src="https://gitee.com/plumChuan/picture-bed/raw/master/img/20210806111257.png"></p>
+</li>
+<li><p>Ribbon在工作时分成两步</p>
+<ul>
+<li>第一步先选择 EurekaServer ,它优先选择在同一个区域内负载较少的server.</li>
+<li>第二步再根据用户指定的策略，在从server取到的服务注册列表中选择一个地址。</li>
+<li>其中Ribbon提供了多种策略：比如轮询、随机和根据响应时间加权。</li>
+</ul>
+</li>
+</ul>
+<h5 id="RestTemplate的使用"><a href="#RestTemplate的使用" class="headerlink" title="RestTemplate的使用"></a>RestTemplate的使用</h5><ul>
+<li>常用的方法为：getForObject和getForEntity方法，以及postForObject和postForEntity方法。</li>
+<li>Object和Entity的区别：<ul>
+<li>Object：返回对象为响应体中数据转化成的对象，基本上可以理解为Json。</li>
+<li>Entity：返回对象为ResponseEntity对象，包含了响应中的一些重要信息，比如响应头、响应状态码、响应体等。</li>
+</ul>
+</li>
+</ul>
+<h5 id="Ribbon的核心组件IRule"><a href="#Ribbon的核心组件IRule" class="headerlink" title="Ribbon的核心组件IRule"></a>Ribbon的核心组件IRule</h5><ul>
+<li><p>IRule：根据特定算法中从服务列表中选取一个要访问的服务。即负载均衡算法选择器。</p>
+</li>
+<li><p>Ribbon的默认负载均衡算法为轮询的方式。</p>
+</li>
+<li><p>IRule的实现类</p>
+<p><img src="https://gitee.com/plumChuan/picture-bed/raw/master/img/20210806112956.png"></p>
+</li>
+</ul>
+<h6 id="替换默认IRule的方式"><a href="#替换默认IRule的方式" class="headerlink" title="替换默认IRule的方式"></a>替换默认IRule的方式</h6><ul>
+<li><p>第一步：创建配置类</p>
+<ul>
+<li>注意：这个配置类不能在@ComponentScan所扫描的当前包下以及子包下，否则我们自定义的这个配置类就会被所有的Ribbon客户端所共享，达不到特殊化定制的目的了。</li>
+<li>即配置类放在和启动类文件不同的文件下。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RibbonConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IRule <span class="title">iRule</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// 修改默认的负载负载均衡算法为随机模式</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> RandomRule();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>第二步：修改组主启动类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableEurekaClient</span></span><br><span class="line"><span class="meta">@RibbonClient(name = &quot;EUREKA-CLIENT-PROVIDER&quot;,configuration = RibbonConfig.class)</span> <span class="comment">//设置自定义负载规则作用于哪个提供者服务</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RibbonClientConsumerMain80</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(RibbonClientConsumerMain80.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h6 id="自定义负载均衡算法"><a href="#自定义负载均衡算法" class="headerlink" title="自定义负载均衡算法"></a>自定义负载均衡算法</h6><ul>
+<li><p>负载均衡算法：ILoadBalancer。</p>
+</li>
+<li><p>负载均衡算法的原理：</p>
+<ul>
+<li>负载均衡算法：rest接口第几次请求数 % 服务器集群总数量 = 实际调用服务器位置下标  ，每次服务重启动后rest接口计数从1开始。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">List&lt;ServiceInstance&gt; instances &#x3D; discoveryClient.getInstances(&quot;CLOUD-PAYMENT-SERVICE&quot;);</span><br><span class="line"> </span><br><span class="line">如：   List [0] instances &#x3D; 127.0.0.1:8002</span><br><span class="line">　　　List [1] instances &#x3D; 127.0.0.1:8001</span><br><span class="line"> </span><br><span class="line">8001+ 8002 组合成为集群，它们共计2台机器，集群总数为2， 按照轮询算法原理：</span><br><span class="line"> </span><br><span class="line">当总请求数为1时： 1 % 2 &#x3D;1 对应下标位置为1 ，则获得服务地址为127.0.0.1:8001</span><br><span class="line">当总请求数位2时： 2 % 2 &#x3D;0 对应下标位置为0 ，则获得服务地址为127.0.0.1:8002</span><br><span class="line">当总请求数位3时： 3 % 2 &#x3D;1 对应下标位置为1 ，则获得服务地址为127.0.0.1:8001</span><br><span class="line">当总请求数位4时： 4 % 2 &#x3D;0 对应下标位置为0 ，则获得服务地址为127.0.0.1:8002</span><br><span class="line">如此类推......</span><br></pre></td></tr></table></figure></li>
+<li><p>第一步：去掉注入RestTemplateBean实体类的@LoadBalanced注解</p>
+</li>
+<li><p>第二步：新建负载均衡算法接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">LoadBalancer</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实现从客户端列表中获取下一个要访问的客户端</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> serviceInstances</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">ServiceInstance <span class="title">instances</span><span class="params">(List&lt;ServiceInstance&gt; serviceInstances)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>第三步：实现负载均衡算法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyLB</span> <span class="keyword">implements</span> <span class="title">LoadBalancer</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> AtomicInteger atomicInteger = <span class="keyword">new</span> AtomicInteger(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndIncrement</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> current;</span><br><span class="line">        <span class="keyword">int</span> next;</span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">        &#123;</span><br><span class="line">            current = <span class="keyword">this</span>.atomicInteger.get();</span><br><span class="line">            next = current &gt;= <span class="number">2147483647</span> ? <span class="number">0</span> : current + <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">while</span>(!<span class="keyword">this</span>.atomicInteger.compareAndSet(current, next));</span><br><span class="line">        System.out.println(<span class="string">&quot;*****next: &quot;</span>+next);</span><br><span class="line">        <span class="keyword">return</span> next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ServiceInstance <span class="title">instances</span><span class="params">(List&lt;ServiceInstance&gt; serviceInstances)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> index = getAndIncrement() % serviceInstances.size();</span><br><span class="line">        <span class="keyword">return</span> serviceInstances.get(index);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>第四步：修改controller类，使用自定义的负载均衡算法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//可以获取注册中心上的服务列表</span></span><br><span class="line"><span class="meta">@Resource</span></span><br><span class="line"><span class="keyword">private</span> DiscoveryClient discoveryClient;</span><br><span class="line"><span class="meta">@Resource</span></span><br><span class="line"><span class="keyword">private</span> LoadBalancer loadBalancer;</span><br><span class="line"><span class="meta">@GetMapping(&quot;/consumer/payment/lb&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getPaymentLB</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// 获取指定服务名的服务的客户端列表</span></span><br><span class="line">  List&lt;ServiceInstance&gt; instances = discoveryClient.getInstances(<span class="string">&quot;CLOUD-PAYMENT-SERVICE&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(instances == <span class="keyword">null</span> || instances.size()&lt;=<span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 从客户端列表中选择一个客户端进行访问</span></span><br><span class="line">  ServiceInstance serviceInstance = loadBalancer.instances(instances);</span><br><span class="line">  <span class="comment">// 获取这个客户端的uri</span></span><br><span class="line">  URI uri = serviceInstance.getUri();</span><br><span class="line">  <span class="keyword">return</span> restTemplate.getForObject(uri+<span class="string">&quot;/payment/lb&quot;</span>,String.class);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/06/Java%E5%AD%A6%E4%B9%A0/%E5%88%86%E5%B8%83%E5%BC%8F%E6%8A%80%E6%9C%AF/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83CAP%E7%90%86%E8%AE%BA/" rel="prev" title="CAP理论与注册中心">
+      <i class="fa fa-chevron-left"></i> CAP理论与注册中心
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/08/06/Java%E5%AD%A6%E4%B9%A0/%E5%88%86%E5%B8%83%E5%BC%8F%E6%8A%80%E6%9C%AF/Cloud-Openfeign/" rel="next" title="Openfeign的使用">
+      Openfeign的使用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">1.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RestTemplate%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">RestTemplate的使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Ribbon%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6IRule"><span class="nav-number">4.</span> <span class="nav-text">Ribbon的核心组件IRule</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9B%BF%E6%8D%A2%E9%BB%98%E8%AE%A4IRule%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">4.1.</span> <span class="nav-text">替换默认IRule的方式</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95"><span class="nav-number">4.2.</span> <span class="nav-text">自定义负载均衡算法</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Plum Reiver</p>
+  <div class="site-description" itemprop="description">技术，日常，笔记</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">97</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+	
+  </nav>
+</div>
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Plum Reiver</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

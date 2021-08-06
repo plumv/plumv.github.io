@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"plumv.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="javaweb学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javaweb学习">
+<meta property="og:url" content="https://plumv.github.io/2021/02/26/Java%E5%AD%A6%E4%B9%A0/%E5%89%8D%E7%AB%AF/JavaWeb-eclipse%E7%89%88/index.html">
+<meta property="og:site_name" content="李川的个人博客">
+<meta property="og:description" content="javaweb学习">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/plumChuan/picture-bed/raw/master/img/20210205121836.png">
+<meta property="og:image" content="https://gitee.com/plumChuan/picture-bed/raw/master/img/20210226172325.png">
+<meta property="og:image" content="https://gitee.com/plumChuan/picture-bed/raw/master/img/20210205135759.png">
+<meta property="og:image" content="https://gitee.com/plumChuan/picture-bed/raw/master/img/20210205152952.png">
+<meta property="og:image" content="https://gitee.com/plumChuan/picture-bed/raw/master/img/20210206191811.png">
+<meta property="og:image" content="https://gitee.com/plumChuan/picture-bed/raw/master/img/20210226172414.png">
+<meta property="og:image" content="https://gitee.com/plumChuan/picture-bed/raw/master/img/20210206194646.png">
+<meta property="og:image" content="https://gitee.com/plumChuan/picture-bed/raw/master/img/20210226172414-1.png">
+<meta property="article:published_time" content="2021-02-25T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-03-22T01:48:06.250Z">
+<meta property="article:author" content="Plum Reiver">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/plumChuan/picture-bed/raw/master/img/20210205121836.png">
+
+<link rel="canonical" href="https://plumv.github.io/2021/02/26/Java%E5%AD%A6%E4%B9%A0/%E5%89%8D%E7%AB%AF/JavaWeb-eclipse%E7%89%88/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>javaweb学习 | 李川的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">李川的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>日志</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://plumv.github.io/2021/02/26/Java%E5%AD%A6%E4%B9%A0/%E5%89%8D%E7%AB%AF/JavaWeb-eclipse%E7%89%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Plum Reiver">
+      <meta itemprop="description" content="技术，日常，笔记">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李川的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          javaweb学习
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-02-26 00:00:00" itemprop="dateCreated datePublished" datetime="2021-02-26T00:00:00+08:00">2021-02-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-22 09:48:06" itemprop="dateModified" datetime="2021-03-22T09:48:06+08:00">2021-03-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">Java学习</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java%E5%AD%A6%E4%B9%A0/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>javaweb学习</p>
+<span id="more"></span>
+<h1 id="第一章-Web基础"><a href="#第一章-Web基础" class="headerlink" title="第一章 Web基础"></a>第一章 Web基础</h1><h2 id="1-1-C-S与B-S结构"><a href="#1-1-C-S与B-S结构" class="headerlink" title="1.1 C/S与B/S结构"></a>1.1 C/S与B/S结构</h2><h3 id="1-1-1-C-S架构"><a href="#1-1-1-C-S架构" class="headerlink" title="1.1.1 C/S架构"></a>1.1.1 C/S架构</h3><ul>
+<li>C/S, Clent/Server, 客户端/服务器。客户端需要安装专用的客户端软件。客户端是针对某一具体业务专门开发的软件,是需要专门安装的软件。</li>
+<li>由于客户端是专用的软件,所以客户端程序一般也具有对具体业务进行处理的能力。从而减轻了服务端的处理压力，使得服务端的运算速度更快，对客户端的响应更快。</li>
+<li>也正是由于客户端是需要专门安装的专用软件,所以导致C/S架构的系统也出现了致命的问题:版本升级成本异常的高无论是由于客户端软件本身功能的升级,或是由于服务端的升级导致客户端也必须要进行升级,无论什么原因导致客户端需要升级，每-一个客户端机器_上都必须先获取到新版本软件，再将老版本进行卸载替换。C/S架构系统的每一次客户端升级，都需要企业为之付出人力、物力、财力上的成本代价。</li>
+<li>典型的C/S架构系统有:安装版的QQ、飞信等。 </li>
+</ul>
+<h3 id="1-1-2-B-S架构"><a href="#1-1-2-B-S架构" class="headerlink" title="1.1.2 B/S架构"></a>1.1.2 B/S架构</h3><ul>
+<li>B/S, Browser/Server, 浏览器/服务器。B/S 架构，其实也是一种特殊的 C/S架构，只不过，这个Clent特指的就是浏览器。</li>
+<li>对于B/S架构的系统，只要客户端安装的有浏览器,那么客户端就可以访问服务端。而整个系统的升级，只需要升级服务端程序即可。所以，B/S 架构的系统最大的优点就是不存在客户端升级问题。</li>
+<li>由于客户端不是专门针对某一具体业务而设计的, 是一个通 用的客户端,所以客户端几乎没有任何对具体业务进行处理运算的能力。而对于具体业务的处理压力，全部加在了服务端，从而导致服务端程序运算速度降低，对客户端的响应速度降低，影响了客户体验。</li>
+<li>另外，B/S架构系统还存在一个问题：浏览器兼容问题。虽然客户端只需要一个浏览器即可访问服务端，但由于现在浏览器品牌、版本很多,而其实现技术千差万别，所以导致服务端需要想办法兼容各种浏览器版本。这无形中又增加了服务端的压力。</li>
+<li>典型的B/S架构系统有:网页版的QQ、飞信等。 </li>
+</ul>
+<h2 id="1-2-Web访问中的角色与协议"><a href="#1-2-Web访问中的角色与协议" class="headerlink" title="1.2 Web访问中的角色与协议"></a>1.2 Web访问中的角色与协议</h2><h3 id="1-2-1-三协议四角色"><a href="#1-2-1-三协议四角色" class="headerlink" title="1.2.1 三协议四角色"></a>1.2.1 三协议四角色</h3><p><img src="https://gitee.com/plumChuan/picture-bed/raw/master/img/20210205121836.png"></p>
+<ul>
+<li>Web访问的整个过程中，从大的方面讲，具有四个角色。而它们之间的通信依赖的是三个协议。</li>
+<li>所谓协议，即是规范、规则，是通信双方事先的约定。</li>
+<li>HTTP协议要求，通信双方，即浏览器与服务器双方，都需要按照指定的格式发出请求与响应。对方按照协议，即事先的约定，对对方发送来的信息进行解析。</li>
+<li>Servlet协议要求,若程序员要开发完成某-具体业务的服务端程序,则必须实现Servlet接口，使用ServletAPI进行数据传递。</li>
+<li>JDBC协议要求，服务器端程序若要连接并操作数据库，则需要按照JIDBC协议中规定的方式(接口方法)获取DB连接、进行SQL的执行、进行结果的获取。而JDBC协议(接口)的实现，均由数据库厂商完成，放于数据库厂商提供的数据库驱动Jar包中了。所以,我们连接不同的数据库，就需要导入不同的数据库驱动Jar包，就是这个原因。</li>
+</ul>
+<h3 id="1-2-2-JavaEE协议"><a href="#1-2-2-JavaEE协议" class="headerlink" title="1.2.2 JavaEE协议"></a>1.2.2 JavaEE协议</h3><ul>
+<li>Servlet协议是JavaEE协议的一部分。JavaEE协议即进行JavaWeb 开发的一套API, 除了包含Servlet协议外,还包含JISP协议、JSTL协议、JPA协议等。目前使用较多的版本是JavaEE5.0o4</li>
+<li>JavaEE5.0 包含的是Servlet2.5 协议。JavaEE6.0 包含是Servlet3.0 协议。而Servlet2.5与3.0版本的一个很大区别是，Servlet3.0 支持对Servlet、Filter. Listener 类的注解式开发。</li>
+</ul>
+<h2 id="1-3-Tomcat服务器"><a href="#1-3-Tomcat服务器" class="headerlink" title="1.3 Tomcat服务器"></a>1.3 Tomcat服务器</h2><ul>
+<li>实际应用中实现了JavaEE 规范的Web服务器很多,如Oracle的WebLogic (需购买)、IBM的WebSphere(需购买)、RedHat公司的JBoss (不支持Servlet/JSP 规范,开源免费)等。这些都称为重量级服务器</li>
+<li>Apache的Tomcat,只是JavaEE规范中Servlet/JSP规范的实现者，所以其是一-个轻量级服务器，它是开源免费的。我们现在的学习过程，使用的是Tomcat服务器。Tomcat 也称为Web容器，或Servlet容器，但不能称为JavaEE容器。</li>
+</ul>
+<h3 id="1-3-1-Tomcat的下载"><a href="#1-3-1-Tomcat的下载" class="headerlink" title="1.3.1 Tomcat的下载"></a>1.3.1 Tomcat的下载</h3><ul>
+<li>官网：<a target="_blank" rel="noopener" href="https://tomcat.apache.org/">https://tomcat.apache.org/</a></li>
+<li>Tomcat9压缩包下载地址：<a target="_blank" rel="noopener" href="https://mirror.bit.edu.cn/apache/tomcat/tomcat-9/v9.0.43/bin/apache-tomcat-9.0.43-windows-x64.zip">https://mirror.bit.edu.cn/apache/tomcat/tomcat-9/v9.0.43/bin/apache-tomcat-9.0.43-windows-x64.zip</a></li>
+<li>Tomcat9原码压缩包下载地址：<a target="_blank" rel="noopener" href="https://mirror.bit.edu.cn/apache/tomcat/tomcat-9/v9.0.43/bin/embed/apache-tomcat-9.0.43-embed.zip">https://mirror.bit.edu.cn/apache/tomcat/tomcat-9/v9.0.43/bin/embed/apache-tomcat-9.0.43-embed.zip</a></li>
+</ul>
+<h3 id="1-3-2-Tomcat的安装与目录结构"><a href="#1-3-2-Tomcat的安装与目录结构" class="headerlink" title="1.3.2 Tomcat的安装与目录结构"></a>1.3.2 Tomcat的安装与目录结构</h3><ul>
+<li>安装：将压缩包解压到想要安装的位置即可</li>
+<li>目录结构：</li>
+</ul>
+<p><img src="https://gitee.com/plumChuan/picture-bed/raw/master/img/20210226172325.png"></p>
+<h3 id="1-3-3-Tomcat的运行环境配置"><a href="#1-3-3-Tomcat的运行环境配置" class="headerlink" title="1.3.3 Tomcat的运行环境配置"></a>1.3.3 Tomcat的运行环境配置</h3><ul>
+<li>Tomcat安装完毕后，需要安装JDK或JRE.对于Tomcat5及以前版本，要求必须要安装JDK,而Tomcat6及其后版本可以只安装JRE而不安装JDK。但,对于我们Java程序员来说，安装JDK是必须的。因为我们不仅仅是运行Java 程序,更重要的是,我们要开发Java程序，所以必须要安装JDK。|</li>
+<li> 在系统环境变量中设置JAVA _HOME后，将其bin目录添加到path变量中即可。</li>
+<li>JAVA _HOME这个路径必须配置，且不能改名。</li>
+</ul>
+<h3 id="1-3-4-Tomcat的启动与访问"><a href="#1-3-4-Tomcat的启动与访问" class="headerlink" title="1.3.4 Tomcat的启动与访问"></a>1.3.4 Tomcat的启动与访问</h3><ul>
+<li>打开Tomcat安装位置。打开bin文件。找到startup.bat。在出现的命令框中没有出啊先错误，警告。即启动成功。</li>
+<li>打开浏览器在地址栏输入localhost:8080出现tomcat网站即启动成功。</li>
+</ul>
+<h1 id="第二章-JavaWeb项目结构"><a href="#第二章-JavaWeb项目结构" class="headerlink" title="第二章 JavaWeb项目结构"></a>第二章 JavaWeb项目结构</h1><h2 id="2-1-第一个Web项目"><a href="#2-1-第一个Web项目" class="headerlink" title="2.1 第一个Web项目"></a>2.1 第一个Web项目</h2><h3 id="2-1-1-项目创建"><a href="#2-1-1-项目创建" class="headerlink" title="2.1.1 项目创建"></a>2.1.1 项目创建</h3><ul>
+<li>新建一个文件夹，名为myWeb。</li>
+<li>在文件夹中新建一个hello.html文件。在此文件中写入hello web html信息。</li>
+</ul>
+<h3 id="2-1-2-项目的部署"><a href="#2-1-2-项目的部署" class="headerlink" title="2.1.2 项目的部署"></a>2.1.2 项目的部署</h3><ul>
+<li>将上述的myWeb文件夹放到Tomcat安装目录下的webapps文件夹内。</li>
+<li>通过Tomcat的bin文件的startup.bat启动服务。</li>
+</ul>
+<h3 id="2-1-3-项目的访问"><a href="#2-1-3-项目的访问" class="headerlink" title="2.1.3 项目的访问"></a>2.1.3 项目的访问</h3><ul>
+<li>当cmd窗口出现[E:\Java\tomcat-9\webapps\myWeb]字样。即将myWeb文件夹发布到Tomcat服务器中。</li>
+<li>打开浏览器访问<a target="_blank" rel="noopener" href="http://localhost:8080/myWeb/hello.html%E3%80%82%E5%8D%B3%E5%8F%AF%E7%9C%8B%E5%88%B0hello.html%E9%A1%B5%E9%9D%A2%E3%80%82">http://localhost:8080/myWeb/hello.html。即可看到hello.html页面。</a></li>
+</ul>
+<h3 id="2-1-4-定义web-xml"><a href="#2-1-4-定义web-xml" class="headerlink" title="2.1.4 定义web.xml"></a>2.1.4 定义web.xml</h3><ul>
+<li>在myWeb文件夹内创建WEB-INF文件夹。此文件夹的名字是固定的</li>
+<li>在WEB-INF文件夹内创建web.xml文件。并且在文件中填入下面代码</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee</span></span></span><br><span class="line"><span class="tag"><span class="string">                             http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">version</span>=<span class="string">&quot;4.0&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">welcome-file-list</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--welcome-file标签内的值表示项目启动时访问的文件名--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">welcome-file</span>&gt;</span>index.html<span class="tag">&lt;/<span class="name">welcome-file</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">welcome-file</span>&gt;</span>index.htm<span class="tag">&lt;/<span class="name">welcome-file</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">welcome-file</span>&gt;</span>index.jsp<span class="tag">&lt;/<span class="name">welcome-file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">welcome-file-list</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改hello.html文件名为index.html</li>
+<li>再次启动tomcat。此时访问<a target="_blank" rel="noopener" href="http://localhost:8080/myWeb/">http://localhost:8080/myWeb/</a></li>
+</ul>
+<h3 id="2-1-5-在命令行打包war包"><a href="#2-1-5-在命令行打包war包" class="headerlink" title="2.1.5 在命令行打包war包"></a>2.1.5 在命令行打包war包</h3><ul>
+<li> 在cmd下，打开myWeb文件夹下。输入下面命令</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jar cvf d:\myWeb.war .</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>cvf 是命令参数，表示生成一个文档，显示生成工程，指定生成的文件名。</li>
+<li>d:\myWeb.war 为生成的文档的存放路径和文件名。</li>
+<li>最后一个点表示要将当前目录中的所有内容进行打包。</li>
+</ul>
+<h2 id="2-2-使用Eclipse创建Web项目"><a href="#2-2-使用Eclipse创建Web项目" class="headerlink" title="2.2 使用Eclipse创建Web项目"></a>2.2 使用Eclipse创建Web项目</h2><ul>
+<li><p>新建Dynamic Web Project项目。</p>
+<ul>
+<li>Target runtime选择新建的Tomcat v9.0。路径为安装的Tomcat.</li>
+<li>项目起名为myWeb。点击完成即可。</li>
+</ul>
+</li>
+<li><p>项目结构如下：</p>
+<p><img src="https://gitee.com/plumChuan/picture-bed/raw/master/img/20210205135759.png"></p>
+</li>
+<li><p>web.xml文件内容同上。在WEB-INF文件下创建index.html。内容如上。</p>
+</li>
+<li><p>启动项目，以server启动，点击确定即可。</p>
+</li>
+<li><p>项目打包方式：右击项目选择导出为war包即可。</p>
+</li>
+</ul>
+<h1 id="第三章-Tomcat核心"><a href="#第三章-Tomcat核心" class="headerlink" title="第三章 Tomcat核心"></a>第三章 Tomcat核心</h1><ul>
+<li>核心文件为conf文件夹下的server.xml文件</li>
+</ul>
+<h2 id="3-1-localhost主机域名"><a href="#3-1-localhost主机域名" class="headerlink" title="3.1 localhost主机域名"></a>3.1 localhost主机域名</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">&quot;8080&quot;</span> <span class="attr">protocol</span>=<span class="string">&quot;HTTP/1.1&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">connectionTimeout</span>=<span class="string">&quot;20000&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">redirectPort</span>=<span class="string">&quot;8443&quot;</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!--Connector:表示tomcat的一个连接配置。</span></span><br><span class="line"><span class="comment">		port表示连接端口为8080。</span></span><br><span class="line"><span class="comment">		protocol表示连接协议为HTTP --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Host</span> <span class="attr">name</span>=<span class="string">&quot;localhost&quot;</span>  <span class="attr">appBase</span>=<span class="string">&quot;webapps&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">unpackWARs</span>=<span class="string">&quot;true&quot;</span> <span class="attr">autoDeploy</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--Host:表示域名解析</span></span><br><span class="line"><span class="comment">		name:表示识别的域名</span></span><br><span class="line"><span class="comment">		appBase:表示项目的位置--&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2-配置虚拟目录"><a href="#3-2-配置虚拟目录" class="headerlink" title="3.2 配置虚拟目录"></a>3.2 配置虚拟目录</h2><ul>
+<li>虚拟目录：可以将web项目放在别的文件夹下。同时tomcat也能访问到这个项目。</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--在节点下填写如下代码--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Context</span> <span class="attr">path</span>=<span class="string">&quot;填写访问的路径&quot;</span> <span class="attr">docBase</span>=<span class="string">&quot;填写项目的路径&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">Context</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Context</span> <span class="attr">path</span>=<span class="string">&quot;/web&quot;</span> <span class="attr">docBase</span>=<span class="string">&quot;d:/myWeb&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">Context</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--此时的访问url就是localhost:8080/web。即可访问到myWeb项目的页面 --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-3-配置虚拟主机"><a href="#3-3-配置虚拟主机" class="headerlink" title="3.3 配置虚拟主机"></a>3.3 配置虚拟主机</h2><ul>
+<li>添加如下代码，同时在电脑中配置此域名的ip对应地址</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Host</span> <span class="attr">name</span>=<span class="string">&quot;自定义域名&quot;</span>  <span class="attr">appBase</span>=<span class="string">&quot;修改为不可重复的&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">unpackWARs</span>=<span class="string">&quot;true&quot;</span> <span class="attr">autoDeploy</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-4-配置默认Tomcat应用管理"><a href="#3-4-配置默认Tomcat应用管理" class="headerlink" title="3.4 配置默认Tomcat应用管理"></a>3.4 配置默认Tomcat应用管理</h2><ul>
+<li>修改Tomcat的conf文件夹下的tomcat-users.xml文件。添加下面信息</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--rolename:表示身份信息。下面表示账户和密码 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">role</span> <span class="attr">rolename</span>=<span class="string">&quot;manager-gui&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">user</span> <span class="attr">username</span>=<span class="string">&quot;1&quot;</span> <span class="attr">password</span>=<span class="string">&quot;1&quot;</span> <span class="attr">roles</span>=<span class="string">&quot;manager-gui&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>重启服务器。浏览器访问：localhost:8080。</p>
+<p><img src="https://gitee.com/plumChuan/picture-bed/raw/master/img/20210205152952.png"></p>
+</li>
+<li><p>点击Manager App。输入配置的身份和密码。即可看到Tomcat的所有项目信息</p>
+</li>
+</ul>
+<h1 id="第四章-HTTP协议"><a href="#第四章-HTTP协议" class="headerlink" title="第四章 HTTP协议"></a>第四章 HTTP协议</h1><ul>
+<li>HTTP, Hyper Text Transfer Protocol,超文本传输协议，是一个基于请求与响应模式的、无状态的网络协议，是浏览器和服务器间最常用的通讯协议。HTP协议是浏览器与服务器间的数据传递格式的一种约定，浏览器与服务器只要都遵循这个约定，就可进行数据通讯了。</li>
+</ul>
+<h2 id="4-1-请求与响应"><a href="#4-1-请求与响应" class="headerlink" title="4.1 请求与响应"></a>4.1 请求与响应</h2><ul>
+<li>由浏览器向服务器发送数据，称为请求Request。由服务器向浏览器发送数据，则称为响应Response。</li>
+<li>那么,什么才是浏览器向服务器发送的请求呢?在浏览器地址栏中通过地址访问是最典型的请求方式，另外还有点击表单的提交按钮、点击超链接、发送AJAX请求,那么还有其它形式的请求吗?</li>
+<li>我们要查看地址栏所发出的请求详情，可以通过抓包工县来拦截HTTP请求与响应，从工具中可以看到具体的请求与响应内容。抓包工县很多，最常用的是HttpWatch。</li>
+<li>Firefox 35版本和HttpWatch 9.4.17版本。</li>
+<li>HttpWatch是一个抓包工具，可以拦截HTTP请求与响应，查看其中通讯的信息。该工具是一个浏览器插件，安装后会自动嵌入到浏览器中。HttpWatch只能在IE与FireFox浏览器中使用。不过,需要注意一点，Win1o系统中需要使用HttpWatch10及其以上版本，否则无法使用。</li>
+<li>浏览器向服务器发送的请求除了URL地址的请求，还包括加载页面时页面的css,js,图片等资源时的请求。</li>
+</ul>
+<h2 id="4-2-HTTP版本"><a href="#4-2-HTTP版本" class="headerlink" title="4.2 HTTP版本"></a>4.2 HTTP版本</h2><ul>
+<li>客户端若要向服务端发出请求，必须首先在它们之间创建一-个 TCP ( Transfer Control Protocal,传输控制协议)连接。而当客户端与服务端的通讯结束后，TCP连接将被关闭。而这个连接就是基于HTTP协议的。</li>
+<li>请注意-点:从“计算机网络通信”细节上来说, TCP连接的建立需要经过“三次握手”，TCP连接的关闭需要经过“四次通信”。</li>
+<li>在通讯中真正使用的HTTP协议，共有两种: HTTP1.0 版与HTTP1.1版。这两个版本目前都仍在使用中。</li>
+</ul>
+<h3 id="4-2-1-HTTP1-0协议"><a href="#4-2-1-HTTP1-0协议" class="headerlink" title="4.2.1 HTTP1.0协议"></a>4.2.1 HTTP1.0协议</h3><ul>
+<li><p>HTTP1.0协议规定,客户端若要向服务端发出请求，必须首先在它们之间创建-一个τCP(Transfer Control Protocal ,传输控制协议)涟接。而当客户端接收到服务端所发出的响应后,服务端将关闭TCP连接。只有等待上-次的请求所对应的响应被客户端接收到后，客户端才可发出第二次请求。HTTP1.0 协议中的连接属于非持久连接，且服务器不跟踪和记录任何一次请求与响应。</p>
+<p><img src="https://gitee.com/plumChuan/picture-bed/raw/master/img/20210206191811.png"></p>
+</li>
+<li><p>客户端和服务端每次建立和关闭连接都是-一个相对比较费时的过程，会严重影响客户端和服务端的性能。中单从前面的“浏览器自动发出的请求”例子中就可看到，一个简单的页面就发出了四次请求，使用HTTP1.0协议，就需要创建与关闭四次连接，严重影响了服务器的响应速度，降低了用户体验。</p>
+</li>
+</ul>
+<h3 id="4-2-2-HTTP1-1协议"><a href="#4-2-2-HTTP1-1协议" class="headerlink" title="4.2.2 HTTP1.1协议"></a>4.2.2 HTTP1.1协议</h3><ul>
+<li><p>HTTP 1.1 版本是目前浏览器默认采用的HTTP协议版本，是一种持久连接，在一个TCP连接上可以传送多个HTTP请求和响应，减少了建立和关闭连接的消耗和延迟。一个包含有许多css、JS、图片等资源的页面，其所发出的多个请求和响应可以在一个连接中传输。但每个单独的页面文件的请求和响应仍然需要使用各自的连接。</p>
+</li>
+<li><p>HTTP1.1还允许客户端不用等待上一次请求结果返回,就可以发出下一次请求，但服务器端必须按照接收到客户端请求的先后顺序依次回送响应结果,以保证客户端能够区分出每次请求的响应内容，这样也显著地减少了整个下载过程所需要的时间。</p>
+</li>
+<li><p>HTTP1.0在客户端接收到服务端发送来的响应后，TCP连接马上关闭。而HTTP1.1的连接是什么时候关闭呢?客户端在发送创建TCP 连接请求之前首先计算出本次连接浏览器所要发送的请求数量，即一次手工请求加上其所携带的所有自动请求数量。当所有浏览器所发出的请求全部发送完毕后，客户端会再自动发送一个关闭TCP连接的请求。这个请求在HttpWatch中是看不到的。</p>
+</li>
+<li><p>为了防止服务器主动将TCP连接关闭，在每一个请求中都携带了一个参数Connection,用于告诉服务器是否关闭连接。在HttpWatch中可以看到的这些请求中,其Connection参数用于告诉服务器是否关闭连接。在HttpWatch中可以看到的这些请求中，其Connection参数值均为Keep-Alive保持连接。只有当客户端发送了关闭TCP连接请求时，服务器才会将TCP连接关闭。</p>
+<p><img src="https://gitee.com/plumChuan/picture-bed/raw/master/img/20210226172414.png"></p>
+</li>
+<li><p>当然，除了改进了HTTP1.0协议的性能问题外，HTTP 1.1还通过增加更多的请求大和响应头来改进和扩充HTTP 1.0 的功能。</p>
+</li>
+<li><p>例如，由于HTTP1.0不支持Host请求头属性，WEB浏览器无法使用主机域名来明确表示要访问服务器上的哪个WEB站点，这样就无法使用WEB服务器在同一个Ip地址和端口号上配置多个虚拟WEB站点。在HTTP1.1中增加Host请求头字段后,WEB浏览器可以使用主机域名来明确表示要访问服务器上的哪个WEB站点,这才实现了在一台WEB服务器上可以在同一个IP地址和端口号上使用不同的主机名来创建多个虛拟WEB站点。</p>
+</li>
+<li><p>HTTP1.1的持续连接,也需要增加新的请求头来帮助实现，例如，Connection请求头的值为Keep-Alive 时，客户端通知服务器返回本次请求的响应后后仍然保持连接; Connection请求头的值为close时，客户端通知服务器关闭连接。</p>
+</li>
+</ul>
+<h3 id="4-2-3-HTTP1-0与1-1的对比"><a href="#4-2-3-HTTP1-0与1-1的对比" class="headerlink" title="4.2.3 HTTP1.0与1.1的对比"></a>4.2.3 HTTP1.0与1.1的对比</h3><ul>
+<li>它们的共同点是，请求与响应是成对出现的，客户端的一次请求一定会对应服务端的一次响应。它们的区别如下。</li>
+<li>HTTP1.0协议<ul>
+<li>HTTP1.0协议中的连接属于非持久连接，一次TCP连接只能进行一次请求与响应。</li>
+<li>一次请求与响应对应一个TCP连接。</li>
+<li>客户端只有在接收到服务端对上一次请求的响应后，客户端才可发出第二次请求。</li>
+<li>HTTP1.0不支持对虚拟主机的访问。因为其没有HOST请求头属性，会将用户所发出的域名直接通过DNS转换为IP后，发送到服务端。也就是说，服务端接收到的直接就是一个IP而非域名。这样HTP1.0的请求就不支持对虚拟主机的访问了。</li>
+<li>HTTP1.0协议中在客户端接收到服务端的响应后，马上发送关闭τCP连接的请求，服务端关闭连接。</li>
+</ul>
+</li>
+<li>HTTP1.1协议<ul>
+<li>HTTP 1.1支持持久连接，在一个TCP连接上可以传送多个请求和响应。</li>
+<li>一般情况下，一个页面中的请求与响应对应一个TCP连接。</li>
+<li>HTP 1.1还允许客户端不用等待上一次请求结果返回，就可以发出下一次请求。</li>
+<li>HTTP1.1支持对虚拟主机的访问。其在请求头属性中增加了HOST 属性，用于记录请求所要访问的虚拟域名。当然，请求中所携带的域名，肯定会通过DNS将其转换为IP,然后查找到相应的主机。但由于请求中还携带有HOST 属性，即要访问的域名仍然在请求中，这样的话，服务器就可以从请求中解析出请求所要访问的虚拟主机名。</li>
+<li>HTTP1.1协议中在客户端接收到对最后一次请求的响应后,马上发送关闭TCP连接请求，服务端关闭连接。</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-3-HTTP协议组成"><a href="#4-3-HTTP协议组成" class="headerlink" title="4.3 HTTP协议组成"></a>4.3 HTTP协议组成</h2><ul>
+<li>HTTP协议包括两部分:请求协议与响应协议。分别用于制定请求与响应信息的格式。</li>
+</ul>
+<h3 id="4-3-1-请求协议"><a href="#4-3-1-请求协议" class="headerlink" title="4.3.1 请求协议"></a>4.3.1 请求协议</h3><ul>
+<li><p>在学习请求协议格式之前，首先要了解两个概念: URL 与URI。</p>
+<ul>
+<li>URL: Uniform Resource Locator, 统一资源定位符。是互联网上标准资源的地址，可以在全球范围内唯一的确定 一个资源。</li>
+<li>URI: Uniform Resource Identfier,统一资源标识符， 用于标识一一个资源的名称。通过这种名称命名的资源可以被互联网定位和访问。</li>
+</ul>
+</li>
+<li><p>请求协议规定,请求的信息格式包括四部分:请求行、请求报头、空白行，与请求正文。</p>
+<ul>
+<li>请求行:以请求提交方式名开头(大写)后跟请求的URI,最后是请求协议及版本号。</li>
+<li>请求报头:存放着各种请求参数及值，其格式为“参数名:参数值”。</li>
+<li>空白行:用于分离请求报头与请求正文。</li>
+<li>请求正文:存放请求还携带的参数及值。</li>
+</ul>
+<p><img src="https://gitee.com/plumChuan/picture-bed/raw/master/img/20210206194646.png"></p>
+</li>
+</ul>
+<h3 id="4-3-2-响应协议"><a href="#4-3-2-响应协议" class="headerlink" title="4.3.2 响应协议"></a>4.3.2 响应协议</h3><p><img src="https://gitee.com/plumChuan/picture-bed/raw/master/img/20210226172414-1.png"></p>
+<h2 id="4-4-状态码"><a href="#4-4-状态码" class="headerlink" title="4.4 状态码"></a>4.4 状态码</h2><ul>
+<li><p>当进行Web应用访问时，经常余看到一些4开头或5开头的提示信息页面。这些就是HTP协议制定的，让服务器传递给浏览器的状态码，表示服务器对当前请求的处理状态。</p>
+</li>
+<li><p>常用的状态码以2、4/5开头，分别表示的意义为:</p>
+<ul>
+<li>2xx:表示对请求计算与响应成功。其中常用的状态码是200。</li>
+<li>4xx:表示请求错误。其中常见的状态码是404， 表示资源找不到。一般都是请求路径书写有问题。</li>
+<li>5xx:表示服务端错误。其中常见的状态码是500， 表示服务器内部错误。一般都是服务端的Java代码发生错误。</li>
+</ul>
+</li>
+<li><p>当发生诸如404、500错误时，Web容器给出一个英文提示的页面。若系统给出这样的页面，则说明系统设计的界面不友好。</p>
+</li>
+<li><p>不过,在web.xml中允许应用指定默认的错误码所对应的错误页面。只要服务端向客户端浏览器发出指定的状态码，则系统就会自动跳转到指定页面。如下面代码：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">error-page</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">error-code</span>&gt;</span>404<span class="tag">&lt;/<span class="name">error-code</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">location</span>&gt;</span>xxx.html<span class="tag">&lt;/<span class="name">location</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">error-page</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">error-page</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">error-code</span>&gt;</span>500<span class="tag">&lt;/<span class="name">error-code</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">location</span>&gt;</span>xxx.html<span class="tag">&lt;/<span class="name">location</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">error-page</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="4-5-GET与POST请求"><a href="#4-5-GET与POST请求" class="headerlink" title="4.5 GET与POST请求"></a>4.5 GET与POST请求</h2><ul>
+<li>HTTP协议规定，浏览器向服务器提交请求的提交方式有8种。但GET与POST请求是最常用的两种请求提交方式。</li>
+</ul>
+<h2 id="4-5-1-GET请求"><a href="#4-5-1-GET请求" class="headerlink" title="4.5.1 GET请求"></a>4.5.1 GET请求</h2><ul>
+<li>由于GET请求会将请求所携带的参数作为请求URL中的一部分出现，所以请求参数会显示在地址栏。而这就导致了GET提交的三点不足:<ul>
+<li>参数值 只能是字符串，而不能是其它类型。</li>
+<li>可以携带的数据量小。</li>
+<li>数据安全性低。</li>
+</ul>
+</li>
+<li>但GET请求有一个很重要的特征:客户端–旦接收到“服务器向GET请求发送的响应”后,浏览器会自动缓存响应。当客户再次进行相同请求提交时，将直接读取本地浏览器缓存中数据,而不再向服务端真正发送数据，让用户感觉服务端的响应很快，提升用户体验，减轻了服务器压力。。</li>
+</ul>
+<h2 id="4-5-2-POST请求"><a href="#4-5-2-POST请求" class="headerlink" title="4.5.2 POST请求"></a>4.5.2 POST请求</h2><ul>
+<li>POST请求会将请求所携带的数据以请求正文的形式出现，所以与GET方式相比，就显示出了两点长处:。<ul>
+<li>数据类型可以是任意类型， 还可以是声音、视频、图片等文件。</li>
+<li>请求可以携带 的数据量大。</li>
+<li>数据安全性高。</li>
+</ul>
+</li>
+<li>但发出POST请求的客户端浏览器不会对接收到的“服务器向POST请求发送的响应”进行缓存。当用户再次进行相同请求时，仍是真正向服务器发送的请求，从服务器读职的数据。</li>
+<li>为什么要设计为“GET请求的响应结果会被浏览器缓存，POST请求的响应结果不会被浏览器缓存”呢?主要有两点原因。</li>
+<li><strong>一个原因</strong>是,以不同的方式提交请求其目的也是不同的。|<ul>
+<li>GET请求的目的一般是客户端要从服务端下载资源,发送相同的请求就代表要下载相同的资源。既然要下载相同的资源而这些资源已经被下载到了客户端，那么就无需再下载了。所以也就无需再向服务器发送真正的下载请求了。所以就将GET 提交方式设计为了“GET请求的响应结果会被浏览器缓存”。</li>
+<li>但posT请求的目的一般是客户端要向服务器端上传资源。对于向服务器端上传资源后响应结果，浏览器是无需缓存的。</li>
+</ul>
+</li>
+<li><strong>另一个原因</strong>是，是否是相同的请求，两种提交方式的比较难易程度是不同的。。<ul>
+<li>GET提交方式的请求只包含请求行、请求头与空行三部分，请求体为空。所以第二次请求与前一次请求是否相同，浏览器很好做出比较。</li>
+<li>但POST提交方式所包含的数据量比较大，主要体现在请求正文内容较多上。请求正文可以是图片、音频、视频等文件，而对第二次请求与前一次请求是否相同的比较，仅从这些内容来看就已经很不好比较了。即对于POST提交，是否是相同请求的提交是不好做出比较的，或者说是无法进行比较的。所以将POST提交方式设计为了“POST请求的响应结果不会被浏览器缓存”。</li>
+<li>(浏览器上传音频图片等资源时，上传的数据可能存在丢包现象，但如果不影响数据的完整性，则默认上传成功。因此POST无法比较)</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-5-3-默认请求方式"><a href="#4-5-3-默认请求方式" class="headerlink" title="4.5.3 默认请求方式"></a>4.5.3 默认请求方式</h3><ul>
+<li><p>浏览器向服务器提交请求的方法常见的有五种，这五种方法所采用的提交方式要么是GET方式，要么是POST方式。具体提交方式如下:</p>
+<table>
+<thead>
+<tr>
+<th align="center">请求方式</th>
+<th align="center">提交方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">表单请求</td>
+<td align="center">默认GET，可以指定POST</td>
+</tr>
+<tr>
+<td align="center">AJAX请求</td>
+<td align="center">默认GET，可以指定POST</td>
+</tr>
+<tr>
+<td align="center">地址栏请求</td>
+<td align="center">GET请求</td>
+</tr>
+<tr>
+<td align="center">超链接请求</td>
+<td align="center">GET请求</td>
+</tr>
+<tr>
+<td align="center">src资源路径请求</td>
+<td align="center">GET请求</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="4-5-4-请求提交方式的选择"><a href="#4-5-4-请求提交方式的选择" class="headerlink" title="4.5.4 请求提交方式的选择"></a>4.5.4 请求提交方式的选择</h3><ul>
+<li><p>根据以.上积述,具有以下几种情况之一的，选择POST提交方式。其它均采用GET提交<br>方式。。</p>
+<ul>
+<li>提交时携带的数据类型不是字符串。</li>
+<li>提交时所携带的数据量比较大。</li>
+<li>提交时所携带的数据具有敏感性，安全性要求较高。</li>
+</ul>
+</li>
+<li><p>为什么POST提交的安全性就高了?因为能够实现POST提交的方式只有两种:通过表单的POST提交，与通过AJAX的POST提交。其它方式均为GET提交方式。对于一个提供了POST登录页面的系统,若用户试图通过地址栏等方式进行登录,则说明其一定是非法登录。也就是说，只要我们设置系统的登录请求提交方式是POST,那么就会出现以下两种情况:。</p>
+<ul>
+<li><p>若用户以 POST方式提交登录请求，我们无法判断其是否是非法登录。因为他有可能是通过其它表单的POST方式提交的登录请求。</p>
+</li>
+<li><p>若用户以GET方式提交登录请求，则马.上就可以判断其是非法登录。</p>
+</li>
+<li><p>基于以上原因，POST提交方式的安全性要高于GET提交方式。</p>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/26/Java%E5%AD%A6%E4%B9%A0/%E5%89%8D%E7%AB%AF/jquery/" rel="prev" title="jquery学习">
+      <i class="fa fa-chevron-left"></i> jquery学习
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/03/06/Java%E5%AD%A6%E4%B9%A0/JavaEE%E6%A1%86%E6%9E%B6/spring5/" rel="next" title="Spring5的学习">
+      Spring5的学习 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-Web%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">第一章 Web基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-C-S%E4%B8%8EB-S%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 C&#x2F;S与B&#x2F;S结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-1-C-S%E6%9E%B6%E6%9E%84"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1.1 C&#x2F;S架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-2-B-S%E6%9E%B6%E6%9E%84"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.1.2 B&#x2F;S架构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-Web%E8%AE%BF%E9%97%AE%E4%B8%AD%E7%9A%84%E8%A7%92%E8%89%B2%E4%B8%8E%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Web访问中的角色与协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-%E4%B8%89%E5%8D%8F%E8%AE%AE%E5%9B%9B%E8%A7%92%E8%89%B2"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1 三协议四角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2-JavaEE%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2 JavaEE协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-Tomcat%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 Tomcat服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-1-Tomcat%E7%9A%84%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.3.1 Tomcat的下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-2-Tomcat%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.2.</span> <span class="nav-text">1.3.2 Tomcat的安装与目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-3-Tomcat%E7%9A%84%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.3.</span> <span class="nav-text">1.3.3 Tomcat的运行环境配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-4-Tomcat%E7%9A%84%E5%90%AF%E5%8A%A8%E4%B8%8E%E8%AE%BF%E9%97%AE"><span class="nav-number">1.3.4.</span> <span class="nav-text">1.3.4 Tomcat的启动与访问</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-JavaWeb%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">第二章 JavaWeb项目结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E7%AC%AC%E4%B8%80%E4%B8%AAWeb%E9%A1%B9%E7%9B%AE"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 第一个Web项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1 项目创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-%E9%A1%B9%E7%9B%AE%E7%9A%84%E9%83%A8%E7%BD%B2"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2 项目的部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%AE%BF%E9%97%AE"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3 项目的访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4-%E5%AE%9A%E4%B9%89web-xml"><span class="nav-number">2.1.4.</span> <span class="nav-text">2.1.4 定义web.xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-5-%E5%9C%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%89%93%E5%8C%85war%E5%8C%85"><span class="nav-number">2.1.5.</span> <span class="nav-text">2.1.5 在命令行打包war包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E4%BD%BF%E7%94%A8Eclipse%E5%88%9B%E5%BB%BAWeb%E9%A1%B9%E7%9B%AE"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 使用Eclipse创建Web项目</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-Tomcat%E6%A0%B8%E5%BF%83"><span class="nav-number">3.</span> <span class="nav-text">第三章 Tomcat核心</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-localhost%E4%B8%BB%E6%9C%BA%E5%9F%9F%E5%90%8D"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 localhost主机域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E9%85%8D%E7%BD%AE%E8%99%9A%E6%8B%9F%E7%9B%AE%E5%BD%95"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 配置虚拟目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E9%85%8D%E7%BD%AE%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 配置虚拟主机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-%E9%85%8D%E7%BD%AE%E9%BB%98%E8%AE%A4Tomcat%E5%BA%94%E7%94%A8%E7%AE%A1%E7%90%86"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 配置默认Tomcat应用管理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-HTTP%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.</span> <span class="nav-text">第四章 HTTP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 请求与响应</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-HTTP%E7%89%88%E6%9C%AC"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 HTTP版本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-1-HTTP1-0%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.2.1.</span> <span class="nav-text">4.2.1 HTTP1.0协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-2-HTTP1-1%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.2.2.</span> <span class="nav-text">4.2.2 HTTP1.1协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-3-HTTP1-0%E4%B8%8E1-1%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">4.2.3.</span> <span class="nav-text">4.2.3 HTTP1.0与1.1的对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-HTTP%E5%8D%8F%E8%AE%AE%E7%BB%84%E6%88%90"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 HTTP协议组成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-1-%E8%AF%B7%E6%B1%82%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.3.1.</span> <span class="nav-text">4.3.1 请求协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-2-%E5%93%8D%E5%BA%94%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.3.2.</span> <span class="nav-text">4.3.2 响应协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">4.4.</span> <span class="nav-text">4.4 状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-GET%E4%B8%8EPOST%E8%AF%B7%E6%B1%82"><span class="nav-number">4.5.</span> <span class="nav-text">4.5 GET与POST请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-1-GET%E8%AF%B7%E6%B1%82"><span class="nav-number">4.6.</span> <span class="nav-text">4.5.1 GET请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-2-POST%E8%AF%B7%E6%B1%82"><span class="nav-number">4.7.</span> <span class="nav-text">4.5.2 POST请求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-3-%E9%BB%98%E8%AE%A4%E8%AF%B7%E6%B1%82%E6%96%B9%E5%BC%8F"><span class="nav-number">4.7.1.</span> <span class="nav-text">4.5.3 默认请求方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-4-%E8%AF%B7%E6%B1%82%E6%8F%90%E4%BA%A4%E6%96%B9%E5%BC%8F%E7%9A%84%E9%80%89%E6%8B%A9"><span class="nav-number">4.7.2.</span> <span class="nav-text">4.5.4 请求提交方式的选择</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Plum Reiver</p>
+  <div class="site-description" itemprop="description">技术，日常，笔记</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">97</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+	
+  </nav>
+</div>
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Plum Reiver</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

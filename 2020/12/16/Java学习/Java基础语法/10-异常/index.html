@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"plumv.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="Java中异常的处理机制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="异常">
+<meta property="og:url" content="https://plumv.github.io/2020/12/16/Java%E5%AD%A6%E4%B9%A0/Java%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/10-%E5%BC%82%E5%B8%B8/index.html">
+<meta property="og:site_name" content="李川的个人博客">
+<meta property="og:description" content="Java中异常的处理机制">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/plumChuan/picture-bed/raw/master/img/20201207184159.png">
+<meta property="og:image" content="https://gitee.com/plumChuan/picture-bed/raw/master/img/20201207184200.png">
+<meta property="og:image" content="https://gitee.com/plumChuan/picture-bed/raw/master/img/20201207180611.png">
+<meta property="article:published_time" content="2020-12-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-03-21T13:10:38.342Z">
+<meta property="article:author" content="Plum Reiver">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/plumChuan/picture-bed/raw/master/img/20201207184159.png">
+
+<link rel="canonical" href="https://plumv.github.io/2020/12/16/Java%E5%AD%A6%E4%B9%A0/Java%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/10-%E5%BC%82%E5%B8%B8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>异常 | 李川的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">李川的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>日志</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://plumv.github.io/2020/12/16/Java%E5%AD%A6%E4%B9%A0/Java%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/10-%E5%BC%82%E5%B8%B8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Plum Reiver">
+      <meta itemprop="description" content="技术，日常，笔记">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李川的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          异常
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-12-16 00:00:00" itemprop="dateCreated datePublished" datetime="2020-12-16T00:00:00+08:00">2020-12-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-21 21:10:38" itemprop="dateModified" datetime="2021-03-21T21:10:38+08:00">2021-03-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">Java学习</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java%E5%AD%A6%E4%B9%A0/Java%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">Java基础语法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Java中异常的处理机制</p>
+<span id="more"></span>
+<h1 id="异常概述于异常体系结构"><a href="#异常概述于异常体系结构" class="headerlink" title="异常概述于异常体系结构"></a>异常概述于异常体系结构</h1><ul>
+<li>异常：在Java语言中，将程序执行中发生的不正常情况称为“异常”。 (开发过程中的语法错误和逻辑错误不是异常)</li>
+<li>Java程序在执行过程中所发生的异常事件可分为两类：<ul>
+<li>Error：Java虚拟机无法解决的严重问题。如：JVM系统内部错误、资源耗尽等严重情况。比如：StackOverflowError和OOM。一般不编写针对性的代码进行处理。</li>
+<li>Exception: 其它因编程错误或偶然的外在因素导致的一般性问题，可以使用针对性的代码进行处理。例如：<ul>
+<li>空指针访问</li>
+<li>试图读取不存在的文件</li>
+<li>网络连接中断</li>
+<li>数组角标越界</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>对于这些错误，一般有两种解决方法：一是遇到错误就终止程序的运行。另一种方法是由程序员在编写程序时，就考虑到错误的检测、错误消息的提示，以及错误的处理。</li>
+<li>捕获错误最理想的是在编译期间，但有的错误只有在运行时才会发生。比如：除数为0，数组下标越界等<ul>
+<li>分类：编译时异常和运行时异常</li>
+</ul>
+</li>
+<li>运行时异常(非受检异常)<ul>
+<li>是指编译器不要求强制处置的异常。一般是指编程时的逻辑错误，是程序员应该积极避免其出现的异常。java.lang.RuntimeException类及它的子类都是运行时异常。</li>
+<li>对于这类异常，可以不作处理，因为这类异常很普遍，若全处理可能会对程序的可读性和运行效率产生影响。</li>
+</ul>
+</li>
+<li>编译时异常(受检异常)<ul>
+<li>是指编译器要求必须处置的异常。即程序在运行时由于外界因素造成的一般性异常。编译器要求Java程序必须捕获或声明所有编译时异常。</li>
+<li>对于这类异常，如果程序不处理，可能会带来意想不到的结果</li>
+</ul>
+</li>
+</ul>
+<h1 id="常见异常"><a href="#常见异常" class="headerlink" title="常见异常"></a>常见异常</h1><p><img src="https://gitee.com/plumChuan/picture-bed/raw/master/img/20201207184159.png"></p>
+<ul>
+<li>java.lang.RuntimeException ：运行时异常<ul>
+<li>ClassCastException：类强制转化异常</li>
+<li>ArrayIndexOutOfBoundsException：数组索引越界异常</li>
+<li>NullPointerException：空指针异常</li>
+<li>ArithmeticException：算术异常</li>
+<li>NumberFormatException：数字格式异常</li>
+<li>InputMismatchException：输入不匹配异常</li>
+</ul>
+</li>
+<li>java.io.IOException：IO异常<ul>
+<li> FileNotFoundException：找不到文件异常</li>
+<li>EOFException：EOF异常</li>
+</ul>
+</li>
+<li>java.lang.ClassNotFoundException：类找不到异常</li>
+<li>java.lang.InterruptedException：中断的异常</li>
+<li>java.io.FileNotFoundException：文件找不到异常</li>
+<li>java.sql.SQLException：数据库异常</li>
+</ul>
+<h1 id="异常处理机制一：try-catch-finally"><a href="#异常处理机制一：try-catch-finally" class="headerlink" title="异常处理机制一：try-catch-finally"></a>异常处理机制一：try-catch-finally</h1><ul>
+<li><p>Java异常处理：Java采用的异常处理机制，是将异常处理的程序代码集中在一起，与正常的程序代码分开，使得程序简洁、优雅，并易于维护。</p>
+</li>
+<li><p>Java异常处理的方式：</p>
+<ul>
+<li>方式一：try-catch-finally    </li>
+<li>方式二：throws + 异常类型</li>
+</ul>
+</li>
+<li><p>Java提供的是异常处理的抓抛模型。</p>
+</li>
+<li><p>Java程序的执行过程中如出现异常，会生成一个异常类对象，该异常对象将被提交给Java运行时系统，这个过程称为抛出(throw)异常。</p>
+</li>
+<li><p>异常对象的生成</p>
+<ul>
+<li>由虚拟机自动生成：程序运行过程中，虚拟机检测到程序发生了问题，如果在当前代码中没有找到相应的处理程序，就会在后台自动创建一个对应异常类的实例对象并抛出——自动抛出</li>
+<li>由开发人员手动创建：Exception exception = new ClassCastException();——创建好的异常对象不抛出对程序没有任何影响，和创建一个普通对象一样</li>
+</ul>
+</li>
+<li><p>如果一个方法内抛出异常，该异常对象会被抛给调用者方法中处理。如果异常没有在调用者方法中处理，它继续被抛给这个调用方法的上层方法。这个过程将一直继续下去，直到异常被处理。这一过程称为捕获(catch)异常。</p>
+</li>
+<li><p>如果一个异常回到main()方法，并且main()也不处理，则程序运行终止。</p>
+</li>
+<li><p>程序员通常只能处理Exception，而对Error无能为力</p>
+</li>
+<li><p>异常处理是通过try-catch-finally语句实现的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    ...... <span class="comment">//可能产生异常的代码</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span>( ExceptionName1 e )&#123;</span><br><span class="line">    ...... <span class="comment">//当产生ExceptionName1型异常时的处置措施</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span>( ExceptionName2 e )&#123;</span><br><span class="line">    ...... <span class="comment">//当产生ExceptionName2型异常时的处置措施</span></span><br><span class="line">&#125; <span class="keyword">finally</span>&#123;</span><br><span class="line">    ...... <span class="comment">//无论是否发生异常，都无条件执行的语句</span></span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure></li>
+<li><p>try：捕获异常的第一步是用try{…}语句块选定捕获异常的范围，将可能出现异常的代码放在try语句块中。</p>
+</li>
+<li><p>catch (Exceptiontype e)：在catch语句块中是对异常对象进行处理的代码。每个try语句块可以伴随一个或多个catch语句，用于处理可能产生的不同类型的异常对象。</p>
+</li>
+<li><p>如果明确知道产生的是何种异常，可以用该异常类作为catch的参数；也可以用其父类作为catch的参数。</p>
+</li>
+<li><p>捕获异常的有关信息：与其它对象一样，可以访问一个异常对象的成员变量或调用它的方法。</p>
+<ul>
+<li>getMessage() 获取异常信息，返回字符串</li>
+<li>printStackTrace() 获取异常类名和异常信息，以及异常出现在程序中的位置。返回值void。</li>
+</ul>
+<p><img src="https://gitee.com/plumChuan/picture-bed/raw/master/img/20201207184200.png"></p>
+</li>
+<li><p>finally：</p>
+<ul>
+<li>捕获异常的最后一步是通过finally语句为异常处理提供一个统一的出口，使得在控制流转到程序的其它部分以前，能够对程序的状态作统一的管理。</li>
+<li>不论在try代码块中是否发生了异常事件，catch语句是否执行，catch语句是否有异常，catch语句中是否有return，finally块中的语句都会被执行。</li>
+<li>finally语句和catch语句是任选的</li>
+</ul>
+</li>
+<li><p>不捕获异常时的情况</p>
+<ul>
+<li>前面使用的异常都是RuntimeException类或是它的子类，这些类的异常的特点是：即使没有使用try和catch捕获，Java自己也能捕获，并且编译通过( 但运行时会发生异常使得程序运行终止 )。</li>
+<li>如果抛出的异常是IOException等类型的非运行时异常，则必须捕获，否则编译错误。也就是说，我们必须处理编译时异常，将异常进行捕捉，转化为运行时异常。</li>
+</ul>
+</li>
+</ul>
+<h1 id="异常处理机制二：throws"><a href="#异常处理机制二：throws" class="headerlink" title="异常处理机制二：throws"></a>异常处理机制二：throws</h1><ul>
+<li><p>声明抛出异常是Java中处理异常的第二种方式</p>
+<ul>
+<li>如果一个方法(中的语句执行时)可能生成某种异常，但是并不能确定如何处理这种异常，则此方法应显示地声明抛出异常，表明该方法将不对这些异常进行处理，而由该方法的调用者负责处理。</li>
+<li>在方法声明中用throws语句可以声明抛出异常的列表，throws后面的异常类型可以是方法中产生的异常类型，也可以是它的父类。</li>
+</ul>
+</li>
+<li><p>声明抛出异常举例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readFile</span><span class="params">(String file)</span> <span class="keyword">throws</span> FileNotFoundException </span>&#123;</span><br><span class="line">    ……</span><br><span class="line">        <span class="comment">// 读文件的操作可能产生FileNotFoundException类型的异常</span></span><br><span class="line">        FileInputStream fis = <span class="keyword">new</span> FileInputStream(file);</span><br><span class="line">    ..……</span><br><span class="line">&#125;	</span><br></pre></td></tr></table></figure></li>
+<li><p>重写方法不能抛出比被重写方法范围更大的异常类型。在多态的情况下， 对methodA()方法的调用-异常的捕获按父类声明的异常处理。</p>
+</li>
+</ul>
+<h1 id="手动抛出异常：throw"><a href="#手动抛出异常：throw" class="headerlink" title="手动抛出异常：throw"></a>手动抛出异常：throw</h1><ul>
+<li><p>Java异常类对象除在程序执行过程中出现异常时由系统自动生成并抛出，也可根据需要使用人工创建并抛出。</p>
+<ul>
+<li><p>首先要生成异常类对象，然后通过throw语句实现抛出操作(提交给Java运行环境)。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IOException e = <span class="keyword">new</span> IOException();</span><br><span class="line"><span class="keyword">throw</span> e;</span><br></pre></td></tr></table></figure></li>
+<li><p>可以抛出的异常必须是Throwable或其子类的实例。下面的语句在编译时将会产生语法错误：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> String(<span class="string">&quot;want to throw&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>throw 与 throws的区别</p>
+<ul>
+<li>含义不同：throws是异常的处理机制，throw只是抛出了一个异常</li>
+<li>抛出的内容不同：throws抛出的是一个个异常类型。throw抛出的是异常类的对象</li>
+<li>抛给的对象不同：throws抛给了调用这个方法的方法。throw抛给了Java处理机。</li>
+<li>声明的位置不同：throws是声明在方法名的后面。throw是声明在方法体内</li>
+</ul>
+</li>
+</ul>
+<h1 id="用户自定义异常"><a href="#用户自定义异常" class="headerlink" title="用户自定义异常"></a>用户自定义异常</h1><ul>
+<li>一般地，用户自定义异常类都是RuntimeException的子类。</li>
+<li>自定义异常类通常需要编写几个重载的构造器。 </li>
+<li>自定义异常需要提供serialVersionUID</li>
+<li>自定义的异常通过throw抛出。 </li>
+<li>自定义异常最重要的是异常类的名字，当异常出现时，可以根据名字判断异常类型。</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p><img src="https://gitee.com/plumChuan/picture-bed/raw/master/img/20201207180611.png"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">* Error:Java虚拟机无法解决的严重问题。</span><br><span class="line">* 		如JVM系统内部错误，资源耗尽等情况。</span><br><span class="line">* 		一般不针对性的编写代码进行处理</span><br><span class="line">* 一，异常体系结构</span><br><span class="line">* 	java.lang.Throwable</span><br><span class="line">* 		java.lang.Error:一般不针对性的编写代码进行处理</span><br><span class="line">* 		java.lang.Exception:可以进行异常处理</span><br><span class="line">* 			编译时异常：IOException,ClassNotFoundException</span><br><span class="line">* 			运行时异常：RuntimeException</span><br><span class="line">* 二，异常的处理：抓抛模型</span><br><span class="line">* 		过程一：抛：程序正在执行的过程中，一旦出现异常，就会在异常代码处生成一个对应</span><br><span class="line">* 				异常类的对象，并将此异常抛出。一旦抛出异常对象后，其后面的代码就不执行了</span><br><span class="line">* 		过程二：抓：可以理解为异常的处理方式：① <span class="keyword">try</span>-<span class="keyword">catch</span>-<span class="keyword">finally</span>。② <span class="keyword">throws</span></span><br><span class="line">* 	<span class="number">1</span>：<span class="keyword">try</span>-<span class="keyword">catch</span>-<span class="keyword">finally</span>的使用</span><br><span class="line">* 		<span class="keyword">try</span>&#123;</span><br><span class="line">* 			<span class="comment">//可能出现异常的代码</span></span><br><span class="line">* 		&#125;<span class="keyword">catch</span>(异常类型<span class="number">1</span>  变量名<span class="number">1</span>)&#123;</span><br><span class="line">* 			<span class="comment">//处理异常1的方式</span></span><br><span class="line">* 		&#125;<span class="keyword">catch</span>(异常类型<span class="number">2</span>  变量名<span class="number">2</span>)&#123;</span><br><span class="line">* 			<span class="comment">//处理异常2的方式</span></span><br><span class="line">* 		&#125;...</span><br><span class="line">* 		<span class="keyword">finally</span>&#123;</span><br><span class="line">* 			<span class="comment">//一定会执行的代码</span></span><br><span class="line">* 		&#125;</span><br><span class="line">* 		① <span class="keyword">finally</span>是可逆的</span><br><span class="line">* 		② 使用<span class="keyword">try</span>将可能出现异常代码包装起来，在执行过程中，一旦出现异常，就会生成</span><br><span class="line">* 		一个对应异常类的对象，根据此对象的类型，区<span class="keyword">catch</span>中进行匹配</span><br><span class="line">* 		③ 一旦<span class="keyword">try</span>中的异常对象匹配到其中一个<span class="keyword">catch</span>时，就进入<span class="keyword">catch</span>中进行异常的处理。</span><br><span class="line">* 		一旦处理完成就跳出当前的<span class="keyword">try</span>-<span class="keyword">catch</span>结构(在没有写<span class="keyword">finally</span>时)，继续执行其后的代码</span><br><span class="line">* 		④ <span class="keyword">catch</span>中的异常类型如果没有父子关系，则谁声明在上，谁声明在下无所谓</span><br><span class="line">* 			如果满足父子关系。则要求子类一定声明在父类的上面。否则会出错</span><br><span class="line">* 		⑤ 常用的异常处理方式： <span class="function">String <span class="title">getMessage</span><span class="params">()</span> <span class="title">printStackTrace</span><span class="params">()</span></span></span><br><span class="line"><span class="function">* 		⑥ 在<span class="keyword">try</span>结构中声明的变量，再出了<span class="keyword">try</span>结构以后，就不能在被调用</span></span><br><span class="line"><span class="function">*    结论1：使用<span class="keyword">try</span>-<span class="keyword">catch</span>-<span class="keyword">finally</span>处理编译时异常，是让程序在编译时不报错，但是运行时仍可能报错。</span></span><br><span class="line"><span class="function">*    	相当于我们使用<span class="keyword">try</span>-<span class="keyword">catch</span>-<span class="keyword">finally</span>将一个编译时可能出现的异常延迟到运行时出现。</span></span><br><span class="line"><span class="function">*    结论2：开发中，有运行时异常比较常见，使用我们通常不针对性的编写<span class="keyword">try</span>-<span class="keyword">catch</span>-<span class="keyword">finally</span>。</span></span><br><span class="line"><span class="function">*    	针对编译时的异常，则一定要考虑异常的处理</span></span><br><span class="line"><span class="function">*  2：<span class="keyword">finally</span>的使用</span></span><br><span class="line"><span class="function">* 		① <span class="keyword">finally</span>是可选的</span></span><br><span class="line"><span class="function">* 		② <span class="keyword">finally</span>中声明的是一定会被执行的代码。即使<span class="keyword">catch</span>中又出现了，<span class="keyword">try</span>中有return 语句，<span class="keyword">catch</span>中有return语句</span></span><br><span class="line"><span class="function">* 		 时，<span class="keyword">finally</span>中的语句也一定会执行</span></span><br><span class="line"><span class="function">* 		③ 像数据库连接，输入输出流，网络编程等资源，JVM是不能自动回收的，我们需要自己手动的进行资源的回收和释放。</span></span><br><span class="line"><span class="function">* 		 因此，此时的资源的释放声明在<span class="keyword">finally</span>中</span></span><br><span class="line"><span class="function">* 	3：<span class="keyword">throws</span> + 异常类型</span></span><br><span class="line"><span class="function">* 		① <span class="keyword">throws</span> + 异常类型 写在方法的声明处，方法名的后面。指明在方法执行时可能会抛出的异常类型。</span></span><br><span class="line"><span class="function">* 		 一旦方法执行时，出现异常，仍会在异常出现的代码处生成一个异常对象，此对象满足<span class="keyword">throws</span>的异常类型，</span></span><br><span class="line"><span class="function">* 		 就会被抛出。异常后面的代码将不会执行。</span></span><br><span class="line"><span class="function">* 		② 重写的方法抛出的异常不能大于原方法抛出的异常 </span></span><br><span class="line"><span class="function">* 		③ <span class="keyword">try</span>-<span class="keyword">catch</span>-<span class="keyword">finally</span>:真正的将异常给处理了。</span></span><br><span class="line"><span class="function">* 		  <span class="keyword">throws</span>的方式只是将异常给抛给了方法的调用者。并没有将异常给真正处理掉。  		</span></span><br><span class="line"><span class="function">* 	 使用：开发中如果选择使用<span class="keyword">try</span>-<span class="keyword">catch</span>-fianlly，还是使用<span class="keyword">throws</span></span></span><br><span class="line"><span class="function">* 		①：如果父类中被重写的方法没有<span class="keyword">throws</span>方式处理异常，则子类重写的方法也不能使用<span class="keyword">throws</span>,只能使用<span class="keyword">try</span>-<span class="keyword">catch</span>-<span class="keyword">finally</span></span></span><br><span class="line"><span class="function">*       来处理异常</span></span><br><span class="line"><span class="function">* 		②：如果一个方法A有调用另一个方法B，另一个方法B有调用其他的方法C，而且这几个方法都有可能会出现异常。我们建议这几</span></span><br><span class="line"><span class="function">*       个方法都是用<span class="keyword">throws</span>方式来抛出异常，并且在方法A中来使用<span class="keyword">try</span>-<span class="keyword">catch</span>-<span class="keyword">finally</span>来处理异常</span></span><br><span class="line"><span class="function">* 	4：手动抛出异常:throw</span></span><br><span class="line"><span class="function">* 		&gt;异常对象的产生：①系统自动生成的异常对象 ②手动的生成一个异常对象并抛出throw  </span></span><br><span class="line"><span class="function">* 		&gt;throw 一般写在方法内，在要抛出异常的地方编写</span></span><br><span class="line"><span class="function">* 		&gt;格式：throw new 异常类型的构造方法</span></span><br><span class="line"><span class="function">*  5：自定义异常类</span></span><br><span class="line"><span class="function">*   &gt;自定义步骤：</span></span><br><span class="line"><span class="function">*  	①继承于现有的异常结构：RuntimeException , Exception</span></span><br><span class="line"><span class="function">*  	②提供全局常量：serialVersionUID</span></span><br><span class="line"><span class="function">*  	③提供重载的构造器</span></span><br><span class="line"><span class="function">* </span></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/15/Java%E5%AD%A6%E4%B9%A0/Java%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/9-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%8B/" rel="prev" title="面向对象(下)">
+      <i class="fa fa-chevron-left"></i> 面向对象(下)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%AC%AC%E5%85%AD%E7%AB%A0-%E6%80%BB%E7%BA%BF/" rel="next" title="第六章-总线">
+      第六章-总线 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E6%A6%82%E8%BF%B0%E4%BA%8E%E5%BC%82%E5%B8%B8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">异常概述于异常体系结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8"><span class="nav-number">2.</span> <span class="nav-text">常见异常</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B8%80%EF%BC%9Atry-catch-finally"><span class="nav-number">3.</span> <span class="nav-text">异常处理机制一：try-catch-finally</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%BA%8C%EF%BC%9Athrows"><span class="nav-number">4.</span> <span class="nav-text">异常处理机制二：throws</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E6%8A%9B%E5%87%BA%E5%BC%82%E5%B8%B8%EF%BC%9Athrow"><span class="nav-number">5.</span> <span class="nav-text">手动抛出异常：throw</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8"><span class="nav-number">6.</span> <span class="nav-text">用户自定义异常</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Plum Reiver</p>
+  <div class="site-description" itemprop="description">技术，日常，笔记</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">97</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+	
+  </nav>
+</div>
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Plum Reiver</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
